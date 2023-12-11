@@ -6,8 +6,7 @@ RSpec.describe World do # rubocop:disable Metrics/BlockLength
   it 'is initialised in a db' do
     world = World.new
     world.state.each do |cell|
-      expect(Cell.exists?(x: cell.x, y: cell.y, alive: true)).to be(true),
-                                                                 "Record not found in the database for cell at (#{cell.x}, #{cell.y})"
+      expect(Cell.exists?(x: cell.x, y: cell.y, alive: true)).to be(true), "Record not found in the database for cell at (#{cell.x}, #{cell.y})" # rubocop:disable Layout/LineLength
     end
   end
 
@@ -20,7 +19,7 @@ RSpec.describe World do # rubocop:disable Metrics/BlockLength
     ).to_stdout
   end
 
-  describe 'transformations' do
+  describe 'transformations' do # rubocop:disable Metrics/BlockLength
     it 'transforms the world zero times' do
       world = World.new
       expected_state = world.state.map { |cell| { x: cell.x, y: cell.y, alive: cell.alive } }
@@ -55,7 +54,6 @@ RSpec.describe World do # rubocop:disable Metrics/BlockLength
 
       world.transform(3)
       expect(world.state.count).to eq(5)
-
     end
   end
 end
