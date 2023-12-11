@@ -10,21 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_201947) do
-  create_table "cells", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2023_12_11_203641) do
+  create_table "cells", id: false, force: :cascade do |t|
     t.integer "x"
     t.integer "y"
     t.boolean "alive"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "points", force: :cascade do |t|
-    t.integer "x"
-    t.integer "y"
-    t.boolean "alive"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
