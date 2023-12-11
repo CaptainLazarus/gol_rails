@@ -5,11 +5,13 @@ class World
   attr_accessor :state
 
   def initialize
-    Cell.create(x: 0, y: 0, alive: true)
-    Cell.create(x: 2, y: 0, alive: true)
-    Cell.create(x: 1, y: 1, alive: true)
-    Cell.create(x: 2, y: 1, alive: true)
-    Cell.create(x: 1, y: 2, alive: true)
+    if Cell.count.zero?
+      Cell.create(x: 0, y: 0, alive: true)
+      Cell.create(x: 2, y: 0, alive: true)
+      Cell.create(x: 1, y: 1, alive: true)
+      Cell.create(x: 2, y: 1, alive: true)
+      Cell.create(x: 1, y: 2, alive: true)
+    end
     @state = Cell.all
   end
 
@@ -24,7 +26,7 @@ class World
   end
 
   def transform(number) # rubocop:disable Metrics/PerceivedComplexity,Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
-    number.times do
+    number.times do # rubocop:disable Metrics/BlockLength
       live_neighbours = Hash.new(0)
       dead_neighbours = Hash.new(0)
 
@@ -39,9 +41,6 @@ class World
           end
         end
       end
-
-      puts "Live neighbours: #{live_neighbours}"
-      puts "Dead neighbours: #{dead_neighbours}"
 
       live_neighbours.each do |key, value|
         if value < 2 || value > 3
