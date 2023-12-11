@@ -1,0 +1,6 @@
+<h2>Cells in the Database</h2>
+<ul>
+  <% cells.each do |cell| %>
+    <li><%= "Cell (x: #{cell.x}, y: #{cell.y}, alive: #{cell.alive})" %></li>
+  <% end %>
+</ul>

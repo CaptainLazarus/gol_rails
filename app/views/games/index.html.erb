@@ -1,0 +1,8 @@
+<h1>Game of Life</h1>
+
+<%= button_to 'Play Game', play_games_path, method: :post, remote: true %>
+<%= button_to 'Reset', reset_games_path, method: :post, data: { confirm: 'Are you sure you want to reset all cells?' } %>
+
+<div id="cells-list">
+  <%= render partial: 'cells_list', locals: { cells: @cells } %>
+</div>
