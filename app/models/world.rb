@@ -40,9 +40,6 @@ class World
         end
       end
 
-      puts dead_neighbours
-      puts @state
-
       @state.each do |key, value|
         if value < 2 || value > 3
           @state.delete(key)

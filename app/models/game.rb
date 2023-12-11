@@ -2,17 +2,19 @@
 
 # The top level game model
 class Game
-  attr_accessor :started
+  attr_accessor :started, :world
 
   def initialize
     @started = false
+    @world = World.new
   end
 
   def started?
     @started
   end
 
-  def play(_number)
+  def play(number)
+    @world.transform(number)
     @started = true
   end
 end
