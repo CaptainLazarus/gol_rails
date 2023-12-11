@@ -5,52 +5,67 @@ class World
   attr_accessor :state
 
   def initialize
-    @state = {
-      [0, 0] => 0,
-      [2, 0] => 0,
-      [1, 1] => 0,
-      [2, 1] => 0,
-      [1, 2] => 0
-    }
+    Cell.create(x: 0, y: 0, alive: true)
+    Cell.create(x: 2, y: 0, alive: true)
+    Cell.create(x: 1, y: 1, alive: true)
+    Cell.create(x: 2, y: 1, alive: true)
+    Cell.create(x: 1, y: 2, alive: true)
+    @state = Cell.all
   end
 
   def display
     3.times do |y|
       3.times do |x|
-        print @state[[x, y]]&.zero? ? 'O' : '.'
+        cell = @state.find { |c| c.x == x && c.y == y }
+        print cell.nil? ? '.' : 'O'
       end
       puts
     end
   end
 
-  def transform(number)
+  def transform(number) # rubocop:disable Metrics/PerceivedComplexity,Metrics/AbcSize,Metrics/MethodLength,Metrics/CyclomaticComplexity
     number.times do
-      dead_neighbours = {}
-      @state.each do |key, _value|
-        get_neighbours(key).each do |neighbour|
-          if @state[neighbour].nil?
-            if dead_neighbours[neighbour].nil?
-              dead_neighbours[neighbour] = 1
-            else
-              dead_neighbours[neighbour] += 1
-            end
+      live_neighbours = Hash.new(0)
+      dead_neighbours = Hash.new(0)
+
+      @state.each do |cell|
+        neighbours = get_neighbours([cell.x, cell.y])
+
+        neighbours.each do |neighbour|
+          if @state.any? { |c| c.x == neighbour[0] && c.y == neighbour[1] }
+            live_neighbours[neighbour] += 1
           else
-            @state[neighbour] += 1
+            dead_neighbours[neighbour] += 1
           end
         end
       end
 
-      @state.each do |key, value|
+      puts "Live neighbours: #{live_neighbours}"
+      puts "Dead neighbours: #{dead_neighbours}"
+
+      live_neighbours.each do |key, value|
         if value < 2 || value > 3
-          @state.delete(key)
+          live_neighbours.delete(key)
         else
-          @state[key] = 0
+          live_neighbours[key] = 0
         end
       end
 
       dead_neighbours.each do |key, value|
-        @state[key] = 0 if value == 3
+        next unless value == 3
+
+        live_neighbours[key] = 0
       end
+
+      update_state(live_neighbours)
+    end
+  end
+
+  def update_state(live_neighbours)
+    @state = []
+    Cell.delete_all
+    live_neighbours.each_key do |key|
+      @state << Cell.create(x: key[0], y: key[1], alive: true)
     end
   end
 
