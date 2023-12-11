@@ -44,5 +44,18 @@ RSpec.describe World do # rubocop:disable Metrics/BlockLength
         ]
       )
     end
+
+    it 'counts the number of cells after n transformations' do
+      world = World.new
+      world.transform(1)
+      expect(world.state.count).to eq(5)
+
+      world.transform(2)
+      expect(world.state.count).to eq(5)
+
+      world.transform(3)
+      expect(world.state.count).to eq(5)
+
+    end
   end
 end
