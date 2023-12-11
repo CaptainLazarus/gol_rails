@@ -1,24 +1,19 @@
-# README
+# Game of Life. In Rails.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Problem Description
+Need to implement game of life in ruby on rails fofr an infinite board. Can simply display the changing coordinates instead of drawing the grid for now.
 
-Things you may want to cover:
+## Dev environment setup
+1. Install [Rails](https://guides.rubyonrails.org/getting_started.html#creating-a-new-rails-project-installing-rails)
+2. Run `bundle install`
+3. Run `rails db:migrate`
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+## Build instructions
+-
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## To Run
+1. App : To run the application, use `rails server` and navigate to `localhost:3000`
+2. Linter : `rubocop -A`
+3. Tests : `rspec`
