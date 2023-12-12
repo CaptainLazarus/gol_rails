@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# World object on which we perform the game of life transformations
-class World
+class World # rubocop:disable Style/Documentation
   attr_accessor :state
 
   def initialize

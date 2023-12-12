@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# The top level game model
-class Game
+class Game # rubocop:disable Style/Documentation
   attr_accessor :started, :world
 
   def initialize
